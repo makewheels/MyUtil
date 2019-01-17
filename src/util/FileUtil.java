@@ -89,6 +89,10 @@ public class FileUtil {
 	 * @param filename
 	 */
 	public static void downloadFile(String url, String folder, String filename) {
+		File file = new File(folder);
+		if (file.exists() == false) {
+			file.mkdirs();
+		}
 		try {
 			HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
 			connection.setConnectTimeout(10000);
