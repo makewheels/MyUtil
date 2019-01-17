@@ -1,7 +1,6 @@
 package util;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -10,7 +9,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DecimalFormat;
 
@@ -87,8 +85,9 @@ public class FileUtil {
 	 * @param url
 	 * @param folder
 	 * @param filename
+	 * @return
 	 */
-	public static void downloadFile(String url, String folder, String filename) {
+	public static boolean downloadFile(String url, String folder, String filename) {
 		File file = new File(folder);
 		if (file.exists() == false) {
 			file.mkdirs();
@@ -101,8 +100,10 @@ public class FileUtil {
 			InputStream inputStream = connection.getInputStream();
 			FileOutputStream fileOutputStream = new FileOutputStream(folder + File.separator + filename);
 			IOUtils.copy(inputStream, fileOutputStream);
+			return true;
 		} catch (IOException e) {
 			e.printStackTrace();
+			return false;
 		}
 	}
 
